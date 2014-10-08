@@ -1,0 +1,25 @@
+{
+  "name": "s3-browser",
+  "version": "1.0.0",
+  "description": "s3 browser written in nodejs",
+  "main": "app.js",
+  "dependencies": {
+    "aws-sdk": "^2.0.18",
+    "express": "^4.9.5",
+    "jade": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cbrake/s3-browser.git"
+  },
+  "author": "Cliff Brake <cbrake@bec-systems.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cbrake/s3-browser/issues"
+  },
+  "homepage": "https://github.com/cbrake/s3-browser"
+}

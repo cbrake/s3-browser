@@ -1,0 +1,6 @@
+{
+  "accessKeyId": "akid", 
+  "secretAccessKey": "secret", 
+  "bucket": "myBucket"
+}
+
