@@ -5,7 +5,8 @@ html
     h1!= message
     ul
       each val in Contents
-       li= val.Key
+        li 
+          a(href='file/' + val.Key)= val.Key
 
       
       

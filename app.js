@@ -1,8 +1,9 @@
 var express = require('express');
 var sys = require('sys');
 var AWS = require('aws-sdk');
+var awsConfig = require('./config.json');
 
-AWS.config.loadFromPath('./config.json');
+AWS.config.update(awsConfig, true);
 
 var s3 = new AWS.S3();
 
@@ -19,6 +20,11 @@ app.get('/', function(req, res) {
       res.render('index', data);
     }
   });
+});
+
+app.get('/file/*', function(req, res) {
+  console.log(req.params);
+  s3.getObject({Bucket: AWS.config.bucket, Key: req.params[0]}).createReadStream().pipe(res);  
 });
 
 var server = app.listen(3000, function() {
