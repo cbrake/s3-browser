@@ -1,0 +1,14 @@
+html
+  head
+    title S3 Browser Login
+  body
+    form(action="/login", method="post")
+      div
+        | User: &nbsp &nbsp
+        input#userName(type="text", name="username")
+      div
+        | Password: &nbsp &nbsp
+        input#passWord(type="password", name="password")
+      div
+        input(type="submit", value="Submit")
+
