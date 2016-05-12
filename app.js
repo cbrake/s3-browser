@@ -62,9 +62,20 @@ app.get('/', checkAuth, function(req, res) {
   });
 });
 
-app.get('/file/*', checkAuth, function(req, res) {
+app.get('/file/*', function(req, res) {
   console.log(req.params);
-  s3.getObject({Bucket: AWS.config.bucket, Key: req.params[0]}).createReadStream().pipe(res);  
+
+  function sendFile(req, res) {
+    s3.getObject({Bucket: AWS.config.bucket, Key: req.params[0]}).createReadStream().pipe(res);  
+  }
+
+  if (req.query.user && config.users[req.query.user] === req.query.pass) {
+    sendFile(req, res);
+  } else {
+    checkAuth(req, res, function(){
+      sendFile(req, res);
+    });
+  }
 });
 
 var server = app.listen(3000, function() {
