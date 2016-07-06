@@ -54,10 +54,21 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/', checkAuth, function(req, res) {
-  s3.listObjects({Bucket: AWS.config.bucket}, function(err, data) {
+  function getObjects(items, marker, callback) {
+    s3.listObjects({Bucket: AWS.config.bucket, Delimiter: ';', Marker:marker}, function(err, data) {
+      if (err) callback(null, err);
+      else if (data.IsTruncated) {
+        getObjects(items.concat(data.Contents), data.NextMarker, callback);
+      } else {
+        callback(items.concat(data.Contents));
+      }
+    });
+  }
+
+  getObjects([], '', function(data, err) {
     if (err) res.send("S3 error");
     else {
-      res.render('index', data);
+      res.render('index', {Contents:data});
     }
   });
 });
